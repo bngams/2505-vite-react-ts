@@ -2,16 +2,27 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Product } from "../models/Product";
 import { useContext } from "react";
 import { CartContext } from "@/features/cart/providers/CartProvider";
+import { useAppDispatch } from "@/store/hooks";
+import { addToCard } from "@/features/cart/slices/cartSlice";
 
 //ProductCard(props: {product: Product})
 function ProductCard({ product } : {product: Product}) {
 
+   // with redux dispatcher
+   const dispatch = useAppDispatch()
+
+    // with context object
     // const cartContext = useContext(CartContext);
+
+    // with destructuring
     const { addToCart}  = useContext(CartContext);
 
     const addProductToCart = () => {
         console.log('Adding product to cart', product);
+        // with context
         addToCart(product);
+        // with redux
+        dispatch(addToCard(product));
     }
 
     return (

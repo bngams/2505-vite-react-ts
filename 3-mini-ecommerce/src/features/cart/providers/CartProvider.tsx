@@ -2,7 +2,7 @@ import { Product } from "@/features/product/models/Product";
 import React, { useEffect } from "react";
 
 type CartContextType = {
-  cart: Product[], 
+  cart: Product[],  // TODO: we can a have a more specific type Cart/CatItem...
   addToCart: (product: Product) => void
 }
 
