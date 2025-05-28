@@ -1,3 +1,4 @@
+import AuthUserButton from "@/features/auth/components/AuthUserButton";
 import CartIconButton from "@/features/cart/components/CartIconButton";
 import { mainNavItems } from "@/routes";
 import { House } from "lucide-react";
@@ -24,6 +25,7 @@ function Header() {
         </nav>
         <div className="flex items-center space-x-2">
             <CartIconButton />
+            <AuthUserButton />
         </div>
       </header>
     )

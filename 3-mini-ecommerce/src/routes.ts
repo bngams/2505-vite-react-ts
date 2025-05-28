@@ -3,6 +3,7 @@ import { NavItems } from "./models/NavItem";
 import About from "./pages/About";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
+import { authStaticNavItems } from "./features/auth/routes";
 
 export const mainNavItems: NavItems = [
     {
@@ -32,6 +33,7 @@ export const mainNavItems: NavItems = [
 
 // Static routes, will not appears in any menu
 export const staticNavItems: NavItems = [
+    ...authStaticNavItems,
     // at the end with * pattern
     {
         path: '*',
