@@ -20,6 +20,7 @@ export const mainNavItems: NavItems = [
         path: '/products',
         component: lazy(() => import('./features/product/pages/Products')),
         label: 'Products',
+        private: true, // To test Auth Guard logic
     },
     // how to add some static routes (in menu or not)
     // here we choose a specific collection staticNavItems (see below)

@@ -1,8 +1,12 @@
 import { Link } from "react-router";
+import { useAuth } from "../providers/AuthProvider";
 
 function AuthUserButton() {
-  // state isLoggedIN => from a state
-  const isLoggedIn = false; // This should be replaced with actual authentication logic
+  // from scratch
+  // const isLoggedIn = false; // This should be replaced with actual authentication logic
+  
+  // from context
+  const { isLoggedIn } = useAuth();
 
   return (
     <>

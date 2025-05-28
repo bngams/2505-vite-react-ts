@@ -9,35 +9,44 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import Credentials, { CredentialsType } from "@/schemas/CredentialsSchema"
+import { CredentialsType } from "@/schemas/CredentialsSchema"
 import { useForm } from "react-hook-form"
-// import { zodResolver } from '@hookform/resolvers/zod';
-// import CredentialsSchema from "@/schemas/CredentialsSchema"
+import CredentialsSchema from "@/schemas/CredentialsSchema"
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useAuth } from "../providers/AuthProvider"
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
 
+  // useAuth() => shortcut for useContext(AuthContext)
+  const { login } = useAuth(); // Assuming you have a useAuth hook to manage authentication  
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<CredentialsType>({
-    // resolver: zodResolver(CredentialsSchema)
+    resolver: zodResolver(CredentialsSchema) // /!\ auto valid still in zod v3
   });
 
   function onSubmit(credentials: CredentialsType) {
     // Handle form submission logic here
-    console.log("Form submitted");
+    console.log("Form submitted", credentials);
+
+    // if zodResolvers => already validated
     // try catch  or if /else
-    try {
-      Credentials.parse(credentials)
-      console.log("Valid credentials:", credentials);
-    } catch(error) {
-      console.error("Validation error:", error);
-      return;
-    } 
+    // try {
+    //   Credentials.parse(credentials)
+    //   console.log("Valid credentials:", credentials);
+    // } catch(error) {
+    //   console.error("Validation error:", error);
+    //   return;
+    // } 
+
+    // TODO: implement better logic: Call service -> then services updates the state
+    login(credentials); // Call the login function from the AuthProvider
   }
 
   return (
@@ -54,12 +63,13 @@ export function LoginForm({
             <div className="flex flex-col gap-6">
               <div className="grid gap-3">
                 <Label htmlFor="email">Email</Label>
+                {/* register options managed with zodresolver */}
                 <Input
                  {...register("email")} 
                 />
                 {errors.email && (
                   <span className="text-red-500 text-sm">
-                    {"Invalid email address"}
+                    {errors.email.message || "Email is required" /* zod v3 error message */}  
                   </span>
                 )}
               </div>
@@ -73,7 +83,13 @@ export function LoginForm({
                     Forgot your password?
                   </a>
                 </div>
+                {/*  register options not needed with zodResolver */}
                 <Input id="password" type="password" {...register("password")} />
+                {errors.password && (
+                  <span className="text-red-500 text-sm">
+                    {"Password is required"}
+                  </span>
+                )}
               </div>
               <div className="flex flex-col gap-3">
                 <Button type="submit" className="w-full">

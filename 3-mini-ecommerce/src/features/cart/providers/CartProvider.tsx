@@ -18,7 +18,7 @@ function CartProvider({children} : {children: React.ReactNode}) {
   };
 
   useEffect(() => {
-    console.log('Init state..');  
+    console.log('Init cart state..');  
   }, []);
 
   return(

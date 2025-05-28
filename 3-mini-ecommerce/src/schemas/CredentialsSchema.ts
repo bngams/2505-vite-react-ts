@@ -1,7 +1,9 @@
-import { z } from "zod/v4"; 
+import { z } from "zod"; 
  
 const CredentialsSchema = z.object({ 
-  email: z.email(),
+  email: z.string()
+    .min(1, { message: "This field has to be filled." })
+    .email("This is not a valid email."),
   password: z.string()
 });
 

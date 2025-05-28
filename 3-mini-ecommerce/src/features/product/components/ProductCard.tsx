@@ -36,6 +36,11 @@ function ProductCard({ product } : {product: Product}) {
               <img className="max-w-[250px] max-h-[250px]" src={product.thumbnail} alt={product.title} />
             </div>
             <button onClick={addProductToCart}>Add to cart</button>
+
+            {/* Example of role-based component usage */}
+            {/* <RoleBasedComponent user={user} role="admin">
+              <button onClick={addProductToCart}>Edit</button>
+            <RoleBasedComponent role="admin"> */}
           </CardContent>
         </Card>
     );
